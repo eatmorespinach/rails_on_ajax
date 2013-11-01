@@ -6,16 +6,14 @@ class MenusController < ApplicationController
 
   def show
     @menu = Menu.find params[:id]
-    @menu_item = @menu.menu_items.build
   end
 
   def create
     @menu = Menu.new params[:menu]
     if @menu.save
-      redirect_to root_path
+      render :json => render_to_string(:partial => 'menu', :locals => {:menu => @menu}).to_json
     else
-      @menus = Menu.all
-      render :index
+      render :json => @menu.errors.full_messages.join(', '), :status => :unprocessable_entity
     end
   end
 end
