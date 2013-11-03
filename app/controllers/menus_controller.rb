@@ -10,11 +10,5 @@ class MenusController < ApplicationController
 
   def create
     @menu = Menu.new params[:menu]
-    if @menu.save
-      redirect_to root_path
-    else
-      @menus = Menu.all
-      render :index
-    end
   end
 end
